@@ -14,7 +14,9 @@ client = AsyncIOMotorClient(MONGODB_URL)
 database = client.base_fasApi
 
 #Seleccionar la colección (se crea auto si no existe)
-collection = database.mi_coleccion
+
+productos_collection = database.productos
+pedidos_collection = database.pedidos
 
 #Función para probar la conexión a la base de datos
 async def test_connection():
@@ -32,11 +34,11 @@ async def test_connection():
 
         # 3. Guarda el documento de prueba en la colección
         print("Guardando documento de prueba en la colección...")
-        result = await collection.insert_one(doctest)
+        result = await productos_collection.insert_one(doctest)
         print(f"Documento guardado con ID: {result.inserted_id}")
 
         # 4. Buscar el dato guardado en la colección
-        datarequest = await collection.find_one({"_id": result.inserted_id})
+        datarequest = await productos_collection.find_one({"_id": result.inserted_id})
         print(f"Documento encontrado: {datarequest}")
         
 
